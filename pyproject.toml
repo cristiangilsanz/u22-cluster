@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "u22-cluster"
+version = "1.0.0"
+description = "A small cluster of Ubuntu containers that trust each other over SSH"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Cristian Gil Sanz" }]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3", "ruff>=0.8"]
+
+[project.scripts]
+u22 = "u22_cluster.cli:entry"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+u22_cluster = ["image/Dockerfile", "image/entrypoint.sh"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]
+markers = ["docker: needs a running Docker engine"]
